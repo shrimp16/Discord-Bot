@@ -1,0 +1,24 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shrimp16/Discord-Bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shrimp16/Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/shrimp16/Discord-Bot#readme",
+  "dependencies": {
+    "discord": "^0.8.2",
+    "discord.js": "^14.1.2"
+  }
+}
