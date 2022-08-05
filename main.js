@@ -1,11 +1,11 @@
 // Require the necessary discord.js classes
-const { Client, Collection, GatewayIntentBits, ClientUser } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 const commandsPath = path.join(__dirname, 'commands');
 
@@ -25,6 +25,14 @@ for (const file of commandFiles) {
 client.on('ready', () => {
     console.log('Ready!');
 });
+
+client.on('messageCreate', async (message) => {
+    
+    if(message.content.toLowerCase().includes('figth')){
+        message.channel.send('fight me bro, fight me!');
+    }
+    
+})
 
 client.on('interactionCreate', async interaction => {
 
