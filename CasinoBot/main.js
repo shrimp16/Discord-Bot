@@ -4,6 +4,8 @@ const { token } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
+const database = require('./database/db');
+
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
@@ -21,6 +23,13 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 
 }
+
+//keeping this here just in case I need to reset the database
+/*
+(async () => {
+    await database.sync({ force: true });
+})();
+*/
 
 // When the client is ready, run this code (only once)
 client.on('ready', () => {

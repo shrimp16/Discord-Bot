@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('my_drive', 'root', '', {
+const sequelize = new Sequelize('casino_bot', 'root', '', {
     dialect: 'mysql',
     host: 'localhost'
 });
