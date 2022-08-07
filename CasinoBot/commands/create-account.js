@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const idGenerator = require('../utils/id-generator');
+const idGenerator = require('../utils/id-generator'); 
 
 module.exports = {
 	data: new SlashCommandBuilder()
