@@ -12,11 +12,11 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
 
-        let user = await Account.findOne(
+        let account = await Account.findOne(
             { where: { id: interaction.options.getString('account') }}
         )
 
-        let currentCash = user.dataValues.cash;
+        let currentCash = account.dataValues.cash;
 
         currentCash += 50;
 
