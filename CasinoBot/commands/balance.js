@@ -17,7 +17,7 @@ module.exports = {
         )
 
         if(!account){
-            interaction.reply(`Invalid Account!`);
+            interaction.reply('Invalid Account!');
             return;
         }
 

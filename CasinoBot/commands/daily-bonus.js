@@ -13,11 +13,14 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
 
-        console.log(interaction.user);
-
         let account = await Account.findOne(
             { where: { id: interaction.options.getString('account') } }
         )
+
+        if(!account) {
+            interaction.reply('Invalid Account!');
+            return;
+        }
 
         let claim = await DailyClaim.findOne(
             { where: { user: interaction.user.id } }
@@ -31,15 +34,11 @@ module.exports = {
             return;
         }
 
-        console.log(claim.dataValues);
-
         let now = new Date().getTime();
         let then = new Date(claim.dataValues.updatedAt).getTime();
 
         const diffTime = Math.abs(now - then);
         const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-
-        console.log(diffDays);
 
         if (diffDays <= 1) {
             interaction.reply(`You already claimed your daily bonus!`);
@@ -52,7 +51,7 @@ module.exports = {
 };
 
 async function claimBonus(account, interaction) {
-    console.log(account.dataValues.cash);
+
     let currentCash = account.dataValues.cash;
 
     currentCash += 50;
@@ -63,4 +62,5 @@ async function claimBonus(account, interaction) {
     )
 
     interaction.reply('Claimed daily bonus! /balance to check your balance!');
+
 }
