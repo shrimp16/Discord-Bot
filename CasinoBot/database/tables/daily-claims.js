@@ -11,9 +11,4 @@ const DailyClaim = database.define('daily-claim', {
     }
 })
 
-DailyClaim.belongsTo(Account, {
-    constraint: true,
-    foreignKey: 'user'
-})
-
 module.exports = DailyClaim;
