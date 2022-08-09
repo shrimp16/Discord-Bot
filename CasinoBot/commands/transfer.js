@@ -19,12 +19,19 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
 
+        let amount = interaction.options.getInteger('amount');
+
         let firstAccount = await Account.findOne(
             { where: { id: interaction.options.getString('first-account')}}
         )
 
         if(!firstAccount){
             interaction.reply('The first account is invalid!');
+            return;
+        }
+
+        if(firstAccount.dataValues.cash < amount){
+            interaction.reply('You do not have enough money!');
             return;
         }
 
@@ -37,7 +44,6 @@ module.exports = {
             return;
         }
 
-        let amount = interaction.options.getInteger('amount');
 
         let firstAccountCash = firstAccount.dataValues.cash - amount;
         let secondAccountCash = secondAccount.dataValues.cash + amount;
