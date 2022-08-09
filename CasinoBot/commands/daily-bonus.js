@@ -17,7 +17,7 @@ module.exports = {
             { where: { id: interaction.options.getString('account') } }
         )
 
-        if(!account) {
+        if (!account) {
             interaction.reply('Invalid Account!');
             return;
         }
