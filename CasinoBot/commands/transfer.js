@@ -21,6 +21,11 @@ module.exports = {
 
         let amount = interaction.options.getInteger('amount');
 
+        if(interaction.options.getString('first-account') === interaction.options.getString('second-account')){
+            interaction.reply('It has to be two different accounts!');
+            return;
+        }
+
         let firstAccount = await Account.findOne(
             { where: { id: interaction.options.getString('first-account')}}
         )
