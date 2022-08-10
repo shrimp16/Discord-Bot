@@ -1,12 +1,30 @@
 const { SlashCommandBuilder, normalizeArray } = require('discord.js');
 
 const colors = [
-    '🔴',
-    '🟢',
-    '🔵',
-    '⚪',
-    '🟠',
-    '🟣'
+    {
+        color: '🔴',
+        value: 'red'
+    },
+    {
+        color: '🟢',
+        value: 'green'
+    },
+    {
+        color: '🔵',
+        value: 'blue'
+    },
+    {
+        color: '⚪',
+        value: 'white'
+    },
+    {
+        color: '🟠',
+        value: 'orange'
+    },
+    {
+        color: '🟣',
+        value: 'purple'
+    },
 ]
 
 module.exports = {
@@ -18,12 +36,12 @@ module.exports = {
                 .setDescription('The color you want to bet on!')
                 .setRequired(true)
                 .addChoices(
-                    { name: 'red', value: 'red' },
-                    { name: 'green', value: 'green' },
-                    { name: 'blue', value: 'blue' },
-                    { name: 'white', value: 'white' },
-                    { name: 'orange', value: 'orange' },
-                    { name: 'purple', value: 'purple' },
+                    { name: 'red 🔴', value: 'red' },
+                    { name: 'green 🟢', value: 'green' },
+                    { name: 'blue 🔵', value: 'blue' },
+                    { name: 'white ⚪', value: 'white' },
+                    { name: 'orange 🟠', value: 'orange' },
+                    { name: 'purple 🟣', value: 'purple' },
                 )),
     async execute(interaction) {
 
@@ -36,7 +54,6 @@ module.exports = {
 
         await message.react('🏆');
 
-
         let rounds = 0;
 
         let emoji;
@@ -46,8 +63,6 @@ module.exports = {
         spinWheel();
 
         async function spinWheel() {
-
-            console.log(message.reactions.cache.length);
 
             if (hasEmoji) {
                 await message.reactions.cache.get(emoji).remove()
@@ -75,6 +90,5 @@ module.exports = {
 
         }
 
-        //return interaction.reply(`Roullette! (You picked ${interaction.options.getString('color')})`);
     },
 };
