@@ -17,6 +17,21 @@ module.exports = {
                     { name: 'purple', value: 'purple' },
                 )),
 	async execute(interaction) {
-		return interaction.reply(`Roullette! (You picked ${interaction.options.getString('color')})`);
+
+        const message = await interaction.reply(
+            { 
+                content: 'Magic-Wheel!',
+                fetchReply: true
+            }
+        );
+
+        message.react('😄');
+
+        setTimeout(() => {
+            message.reactions.removeAll()
+                .catch(error => console.error('Something went wrong!', error));
+        }, 100);
+
+		//return interaction.reply(`Roullette! (You picked ${interaction.options.getString('color')})`);
 	},
 };
