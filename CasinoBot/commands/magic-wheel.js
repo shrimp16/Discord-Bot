@@ -12,6 +12,9 @@ module.exports = {
                     { name: 'red', value: 'red' },
                     { name: 'green', value: 'green' },
                     { name: 'blue', value: 'blue' },
+                    { name: 'black', value: 'black' },
+                    { name: 'orange', value: 'orange' },
+                    { name: 'purple', value: 'purple' },
                 )),
 	async execute(interaction) {
 		return interaction.reply(`Roullette! (You picked ${interaction.options.getString('color')})`);
