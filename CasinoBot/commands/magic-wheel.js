@@ -36,13 +36,17 @@ module.exports = {
                 .setDescription('The color you want to bet on!')
                 .setRequired(true)
                 .addChoices(
-                    { name: 'red 🔴', value: 'red' },
-                    { name: 'green 🟢', value: 'green' },
-                    { name: 'blue 🔵', value: 'blue' },
-                    { name: 'white ⚪', value: 'white' },
-                    { name: 'orange 🟠', value: 'orange' },
-                    { name: 'purple 🟣', value: 'purple' },
-                )),
+                    { name: 'Red 🔴', value: 'red' },
+                    { name: 'Green 🟢', value: 'green' },
+                    { name: 'Blue 🔵', value: 'blue' },
+                    { name: 'White ⚪', value: 'white' },
+                    { name: 'Orange 🟠', value: 'orange' },
+                    { name: 'Purple 🟣', value: 'purple' },
+                ))
+        .addIntegerOption(option =>
+            option.setName('bet-value')
+                .setDescription('The amount of cash you want to bet!')
+                .setRequired(true)),
     async execute(interaction) {
 
         const message = await interaction.reply(
@@ -72,9 +76,9 @@ module.exports = {
 
             index = Math.floor(Math.random() * colors.length);
 
-            emoji = colors[index];
+            emoji = colors[index].color;
 
-            await message.react(`${colors[index]}`);
+            await message.react(`${colors[index].color}`);
 
             rounds++;
 
@@ -84,7 +88,7 @@ module.exports = {
 
                 setTimeout(() => {
                     spinWheel();
-                }, 1000);
+                }, 500);
 
             }
 
