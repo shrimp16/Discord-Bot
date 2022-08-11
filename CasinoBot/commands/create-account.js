@@ -6,18 +6,15 @@ const Account = require('../database/tables/accounts');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('create-account')
-		.setDescription('Creates a fresh account!'),
+		.setDescription('Creates a fresh account! Creating an account is necessary to play with this bot!'),
 	async execute(interaction) {
 
-        const id = idGenerator.getUniqueID();
-
         await Account.create({
-            id: id,
+            id: interaction.user.id,
             cash: 0
         })
 
-        interaction.reply('Create new account!');
-        return interaction.user.send(`Here's your new fresh account: ${id}`);
+        interaction.reply('Created a new account! Welcome to the game!');
 
 	},
 };
