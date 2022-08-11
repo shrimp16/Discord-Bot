@@ -6,12 +6,8 @@ module.exports = {
         .setName('transfer')
         .setDescription('Transfer cash from an account to another!')
         .addStringOption(option =>
-            option.setName('first-account')
-                .setDescription('Insert the account that will send the cash.')
-                .setRequired(true))
-        .addStringOption(option =>
-            option.setName('second-account')
-                .setDescription('Insert the account that will receive the cash.')
+            option.setName('receiver')
+                .setDescription('Insert the person that will recieve the cash')
                 .setRequired(true))
         .addIntegerOption(option =>
             option.setName('amount')
@@ -21,48 +17,37 @@ module.exports = {
 
         let amount = interaction.options.getInteger('amount');
 
-        if(interaction.options.getString('first-account') === interaction.options.getString('second-account')){
-            interaction.reply('It has to be two different accounts!');
-            return;
-        }
-
-        let firstAccount = await Account.findOne(
-            { where: { id: interaction.options.getString('first-account')}}
+        let sender = await Account.findOne(
+            { where: { id: interaction.user.id }}
         )
 
-        if(!firstAccount){
-            interaction.reply('The first account is invalid!');
+        let receiver = await Account.findOne(
+            { where: { id: interaction.options.getString('receiver')}}
+        )
+
+        if(!receiver){
+            interaction.reply(`You're trying to send money to an invalid account`);
             return;
         }
 
-        if(firstAccount.dataValues.cash < amount){
+        if(sender.dataValues.cash < amount){
             interaction.reply('You do not have enough money!');
             return;
         }
 
-        let secondAccount = await Account.findOne(
-            { where: { id: interaction.options.getString('second-account')}}
-        )
-
-        if(!secondAccount){
-            interaction.reply('The second account is invalid!');
-            return;
-        }
-
-
-        let firstAccountCash = firstAccount.dataValues.cash - amount;
-        let secondAccountCash = secondAccount.dataValues.cash + amount;
+        let senderNewCash = firstAccount.dataValues.cash - amount;
+        let receiverNewCash = secondAccount.dataValues.cash + amount;
             
         await Account.update(
-            { cash: firstAccountCash },
-            { where: { id: interaction.options.getString('first-account')}}
+            { cash: senderNewCash },
+            { where: { id: interaction.user.id }}
         )
 
         await Account.update(
-            { cash: secondAccountCash },
-            { where: { id: interaction.options.getString('second-account')}}
+            { cash: receiverNewCash },
+            { where: { id: interaction.options.getString('receiver')}}
         )
 
-        return interaction.reply(`Transfered ${amount} to person`);
+        return interaction.reply(`Transfered ${amount} to ${interaction.options.getString('receiver')}`);
     },
 };
