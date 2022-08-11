@@ -7,14 +7,14 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('daily-bonus')
         .setDescription('Collect your daily bonus!')
-        .addStringOption(option =>
+        /*.addStringOption(option =>
             option.setName('account')
                 .setDescription('Insert the account where you want to recieve the bonus.')
-                .setRequired(true)),
+                .setRequired(true))*/,
     async execute(interaction) {
 
         let account = await Account.findOne(
-            { where: { id: interaction.options.getString('account') } }
+            { where: { id: interaction.user.id } }
         )
 
         if (!account) {
@@ -58,7 +58,7 @@ async function claimBonus(account, interaction) {
 
     await Account.update(
         { cash: currentCash },
-        { where: { id: interaction.options.getString('account') } }
+        { where: { id: interaction.user.id } }
     )
 
     interaction.reply('Claimed daily bonus! /balance to check your balance!');
