@@ -6,11 +6,7 @@ const DailyClaim = require('../database/tables/daily-claims');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('daily-bonus')
-        .setDescription('Collect your daily bonus!')
-        /*.addStringOption(option =>
-            option.setName('account')
-                .setDescription('Insert the account where you want to recieve the bonus.')
-                .setRequired(true))*/,
+        .setDescription('Collect your daily bonus!'),
     async execute(interaction) {
 
         let account = await Account.findOne(
