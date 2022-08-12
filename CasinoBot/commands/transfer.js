@@ -21,8 +21,11 @@ module.exports = {
             { where: { id: interaction.user.id }}
         )
 
+        let receiver_id = fixTag(interaction.options.getString('receiver'));
+        console.log(receiver_id);
+
         let receiver = await Account.findOne(
-            { where: { id: interaction.options.getString('receiver')}}
+            { where: { id: receiver_id}}
         )
 
         if(!receiver){
@@ -35,8 +38,8 @@ module.exports = {
             return;
         }
 
-        let senderNewCash = firstAccount.dataValues.cash - amount;
-        let receiverNewCash = secondAccount.dataValues.cash + amount;
+        let senderNewCash = sender.dataValues.cash - amount;
+        let receiverNewCash = receiver.dataValues.cash + amount;
             
         await Account.update(
             { cash: senderNewCash },
@@ -45,13 +48,13 @@ module.exports = {
 
         await Account.update(
             { cash: receiverNewCash },
-            { where: { id: interaction.options.getString('receiver')}}
+            { where: { id: receiver_id}}
         )
 
-        return interaction.reply(`Transfered ${amount} to ${interaction.options.getString('receiver')}`);
+        return interaction.reply(`Transfered ${amount} $ to ${interaction.options.getString('receiver')}`);
     },
 };
 
 function fixTag(tag){
-    return tag.substring(0, tag.length - 1);
+    return tag.substring(3, tag.length - 1);
 }
