@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('discord.js');
-const idGenerator = require('../utils/id-generator');
 
 const Account = require('../database/tables/accounts');
 
