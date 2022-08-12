@@ -54,7 +54,3 @@ module.exports = {
         return interaction.reply(`Transfered ${amount} $ to ${interaction.options.getString('receiver')}`);
     },
 };
-
-function fixTag(tag){
-    return tag.substring(3, tag.length - 1);
-}
