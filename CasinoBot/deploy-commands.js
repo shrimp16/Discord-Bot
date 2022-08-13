@@ -28,6 +28,8 @@ for(let i = 0; i < commandFiles.length; i++){
 	}
 }
 
+console.log(commands);
+
 function getFiles(dir){
 
 	return fs.readdirSync(dir).filter(file => file.endsWith('.js'));
