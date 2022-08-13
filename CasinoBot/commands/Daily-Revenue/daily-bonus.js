@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, InteractionResponse } = require('discord.js');
 
-const Account = require('../database/tables/accounts');
-const DailyClaim = require('../database/tables/daily-claims');
+const Account = require('../../database/tables/accounts');
+const DailyClaim = require('../../database/tables/daily-claims');
 
 module.exports = {
     data: new SlashCommandBuilder()
