@@ -5,8 +5,7 @@ const { Routes } = require('discord.js');
 const { clientId, guildId, token } = require('./config.json');
 
 const commands = [];
-//const commandsPath = path.join(__dirname, 'commands');
-//const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+const commandFiles = [];
 
 const commandsDirectories = [
 	path.join(__dirname, 'commands'),
@@ -16,7 +15,6 @@ const commandsDirectories = [
 	path.join(__dirname, 'commands/Risky')
 ];
 
-const commandFiles = [];
 
 for(const directory of commandsDirectories){
 	commandFiles.push(getFiles(directory));
@@ -29,8 +27,6 @@ for(let i = 0; i < commandFiles.length; i++){
 		commands.push(command.data.toJSON());
 	}
 }
-
-console.log(commands.length);
 
 function getFiles(dir){
 
