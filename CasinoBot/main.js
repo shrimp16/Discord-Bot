@@ -4,6 +4,8 @@ const { token } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
+const { loadToBot } = require('./commands-loader');
+
 const database = require('./database/db');
 
 // Create a new client instance
@@ -21,12 +23,6 @@ const commandsDirectories = [
 //INSTEAD OF HAVING AN ARRAY, A SIMPLE VARIABLE IS ENOUGH IN CASE THERE'S ONLY ONE DIRECTORY FOR ALL THE COMMANDS//
 //const commandsPath = path.join(__dirname, 'commands');
 
-//CREATES AN ARRAY OF ARRAYS WITH ALL THE FILES PATH FROM EACH DIRECTORY//
-const commandFiles = [];
-for(const directory of commandsDirectories){
-	commandFiles.push(fs.readdirSync(directory).filter(file => file.endsWith('.js')));
-}
-
 //THIS IS THE WAY TO CREATE THE ARRAY WITH ALL THE FILES PATH WITH ONLY ONE DIRECTORY//
 //const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
@@ -34,7 +30,7 @@ for(const directory of commandsDirectories){
 IT IS THE ALMOST THE SAME AS THE ONE ON THE DEPLOY COMMANDS FILE BUT THIS ONE ADDS THE COMMANDS DATA//
 TO A COLLECTION FOR THE USERS TO INVOKE
 */
-client.commands = new Collection();
+client.commands = loadToBot();
 //FIRST TRY TO GET THIS LOADER TO WORK//
 /*for(let i = 0; i < commandFiles.length; i++){
 	for(let b = 0; b < commandFiles[i].length; b++){
@@ -45,16 +41,6 @@ client.commands = new Collection();
 }*/
 
 //SOME EXPERIMENTS WITH FUNCTIONAL PROGRAMMING TO LOAD THE COMMANDS//
-let pointer = 0;
-
-commandFiles.forEach(commands => {
-    commands.forEach(command => {
-        const filePath = path.join(commandsDirectories[pointer], command);
-        const commandCode = require(filePath);
-        client.commands.set(commandCode.data.name, commandCode);
-    });
-    pointer++;
-})
 
 //OLD WAY THAT WORKS WHEN ALL THE COMMAND FILES ARE ON THE SAME DIRECTORY//
 /*for (const file of commandFiles) {

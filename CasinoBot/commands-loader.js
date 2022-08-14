@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { Collection } = require('discord.js');
 
 //ARRAY WITH ALL THE PATHS FOR THE FILES//
 const commandsDirectories = [
@@ -19,13 +20,32 @@ function getFiles() {
     return commandFiles;
 }
 
+/**Creates a collection of commands for the bot to use*/
 function loadToBot() {
 
+    const commandFiles = getFiles();
+    const commandsCollection = new Collection();
+
+    let pointer = 0;
+
+    //This is a more functional way to get the loader to work//
+    commandFiles.forEach(commands => {
+        commands.forEach(command => {
+            const filePath = path.join(commandsDirectories[pointer], command);
+            const commandCode = require(filePath);
+            commandsCollection.set(commandCode.data.name, commandCode);
+        });
+        pointer++;
+    })
+
+    return commandsCollection;
+    
 }
 
 
 /**Creates and array with all the file's data as JSON to then deploy the commands*/
 function loadToDeploy() {
+
     const commandFiles = getFiles();
     const commands = [];
 
@@ -39,6 +59,7 @@ function loadToDeploy() {
     }
 
     return commands;
+
 }
 
 module.exports = {
