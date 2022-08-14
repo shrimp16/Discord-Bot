@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, InteractionResponse } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 
 const Account = require('../../database/tables/accounts');
 const DailyClaim = require('../../database/tables/daily-claims');
