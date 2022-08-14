@@ -42,7 +42,6 @@ function loadToBot() {
     
 }
 
-
 /**Creates and array with all the file's data as JSON to then deploy the commands*/
 function loadToDeploy() {
 
