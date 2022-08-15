@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 
+const { getDays } = require('../../utils/time-manager');
+
 const Account = require('../../database/tables/accounts');
 const DailyClaim = require('../../database/tables/daily-claims');
 
@@ -34,7 +36,8 @@ module.exports = {
         let then = new Date(claim.dataValues.updatedAt).getTime();
 
         const diffTime = Math.abs(now - then);
-        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+        const diffDays = getDays(diffTime);
 
         if (diffDays <= 1) {
             interaction.reply(`You already claimed your daily bonus!`);
