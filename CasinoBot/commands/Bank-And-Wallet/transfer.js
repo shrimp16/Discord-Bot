@@ -23,7 +23,6 @@ module.exports = {
         )
 
         let receiver_id = fixTag(interaction.options.getString('receiver'));
-        console.log(receiver_id);
 
         let receiver = await Account.findOne(
             { where: { id: receiver_id}}
@@ -34,21 +33,21 @@ module.exports = {
             return;
         }
 
-        if(sender.dataValues.cash < amount){
+        if(sender.dataValues.wallet_cash < amount){
             interaction.reply('You do not have enough money!');
             return;
         }
 
-        let senderNewCash = sender.dataValues.cash - amount;
-        let receiverNewCash = receiver.dataValues.cash + amount;
+        let senderNewCash = sender.dataValues.wallet_cash - amount;
+        let receiverNewCash = receiver.dataValues.wallet_cash + amount;
             
         await Account.update(
-            { cash: senderNewCash },
+            { wallet_cash: senderNewCash },
             { where: { id: interaction.user.id }}
         )
 
         await Account.update(
-            { cash: receiverNewCash },
+            { wallet_cash: receiverNewCash },
             { where: { id: receiver_id}}
         )
 

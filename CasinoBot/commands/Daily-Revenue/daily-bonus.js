@@ -21,12 +21,13 @@ module.exports = {
         }
 
         let claim = await DailyClaim.findOne(
-            { where: { user: interaction.user.id } }
+            { where: { user_id: interaction.user.id } }
         )
 
         if (!claim) {
             await DailyClaim.create({
-                user: interaction.user.id
+                user_id: interaction.user.id,
+                last_claim: new Date().getTime()
             })
             claimBonus(account, interaction);
             return;
@@ -51,12 +52,12 @@ module.exports = {
 
 async function claimBonus(account, interaction) {
 
-    let currentCash = account.dataValues.cash;
+    let currentCash = account.dataValues.wallet_cash;
 
     currentCash += 50;
-
+    
     await Account.update(
-        { cash: currentCash },
+        { wallet_cash: currentCash },
         { where: { id: interaction.user.id } }
     )
 

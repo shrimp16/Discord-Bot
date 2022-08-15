@@ -37,8 +37,8 @@ module.exports = {
 
             let stealCash = Math.floor(Math.random() * stealer.dataValues.cash);
 
-            newStealerCash = stealer.dataValues.cash - stealCash;
-            newVictimCash = victim.dataValues.cash + stealCash;
+            newStealerCash = stealer.dataValues.wallet_cash - stealCash;
+            newVictimCash = victim.dataValues.wallet_cash + stealCash;
 
             interaction.reply(`${interaction.options.getString('victim')} outplayed you and stole ${stealCash} $ from you instead!`);
 
@@ -46,20 +46,20 @@ module.exports = {
 
             let stealCash = Math.floor(Math.random() * victim.dataValues.cash);
 
-            newStealerCash = stealer.dataValues.cash + stealCash;
-            newVictimCash = victim.dataValues.cash - stealCash;
+            newStealerCash = stealer.dataValues.wallet_cash + stealCash;
+            newVictimCash = victim.dataValues.wallet_cash - stealCash;
 
             interaction.reply(`You stole ${stealCash} $ from ${interaction.options.getString('victim')}`);
             
         }
 
         await Account.update(
-            { cash:  newStealerCash },
+            { wallet_cash:  newStealerCash },
             { where: { id: interaction.user.id }}
         )
 
         await Account.update(
-            { cash: newVictimCash },
+            { wallet_cash: newVictimCash },
             { where: { id: fixTag(interaction.options.getString('victim')) } }
         )
 

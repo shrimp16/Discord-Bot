@@ -25,6 +25,6 @@ module.exports = {
             return;
         }
 
-        return interaction.reply(`Balance: ${account.dataValues.cash} $`);
+        return interaction.reply(`Balance: ${account.dataValues.wallet_cash} $`);
     },
 };

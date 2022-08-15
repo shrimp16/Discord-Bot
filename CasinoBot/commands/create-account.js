@@ -10,7 +10,7 @@ module.exports = {
 
         await Account.create({
             id: interaction.user.id,
-            cash: 0
+            wallet_cash: 0
         })
 
         interaction.reply('Created a new account! Welcome to the game!');
