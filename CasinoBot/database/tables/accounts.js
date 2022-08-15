@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+ const Sequelize = require('sequelize');
 const database = require('../db');
 
 const Account = database.define('account', {
@@ -8,7 +8,7 @@ const Account = database.define('account', {
         unique: true,
         primaryKey: true
     },
-    cash: {
+    wallet_cash: {
         type: Sequelize.FLOAT,
         allowNull: false
     }

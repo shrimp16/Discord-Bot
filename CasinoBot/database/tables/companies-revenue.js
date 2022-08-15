@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const database = require('../db');
 const Account = require('./accounts');
 
-const DailyClaim = database.define('daily-claim', {
+const CompaniesRevenue = database.define('companies-revenue', {
     user_id: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -15,9 +15,9 @@ const DailyClaim = database.define('daily-claim', {
     }
 })
 
-DailyClaim.belongsTo(Account, {
+CompaniesRevenue.belongsTo(Account, {
     constraint: true,
     foreignKey: 'user_id'
 })
 
-module.exports = DailyClaim;
+module.exports = CompaniesRevenue;

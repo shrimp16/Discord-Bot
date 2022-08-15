@@ -6,17 +6,28 @@ const { loadToBot } = require('./commands-loader');
 
 const database = require('./database/db');
 
+const Account = require('./database/tables/accounts')
+const BankAccount = require('./database/tables/bank-accounts');
+const CompaniesRevenue = require('./database/tables/companies-revenue');
+const DailyClaim = require('./database/tables/daily-claims');
+
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 client.commands = loadToBot();
 
 //keeping this here just in case I need to reset the database
-/*
+
 (async () => {
-    await database.sync({ force: true });
+    //await database.sync({ force: true });
+
+    await Account.sync();
+    await BankAccount.sync();
+    await CompaniesRevenue.sync();
+    await DailyClaim.sync();
+
 })();
-*/
+
 
 // When the client is ready, run this code (only once)
 client.on('ready', () => {
