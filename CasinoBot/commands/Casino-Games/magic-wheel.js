@@ -70,7 +70,7 @@ module.exports = {
 
             if (hasEmoji) {
                 await message.reactions.cache.get(emoji).remove()
-                    .catch(error => console.log("shit"));
+                    .catch(error => console.log(`Something went wrong! Error : ${error}`));
                 hasEmoji = false;
             }
 
