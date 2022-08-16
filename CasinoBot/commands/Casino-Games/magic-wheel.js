@@ -1,4 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, InteractionResponse } = require('discord.js');
+
+const Account = require('../../database/tables/accounts');
 
 const colors = [
     {
@@ -49,6 +51,12 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
 
+        const account = await Account.findOne(
+            { where: { id: interaction.user.id } }
+        )
+
+        let newCash = account.dataValues.wallet_cash - interaction.options.getInteger('bet-value');
+
         const message = await interaction.reply(
             {
                 content: 'Magic-Wheel!',
@@ -69,16 +77,16 @@ module.exports = {
         async function spinWheel() {
 
             if (hasEmoji) {
-                await message.reactions.cache.get(emoji).remove()
+                await message.reactions.cache.get(emoji.color).remove()
                     .catch(error => console.log(`Something went wrong! Error : ${error}`));
                 hasEmoji = false;
             }
 
             index = Math.floor(Math.random() * colors.length);
 
-            emoji = colors[index].color;
+            emoji = colors[index];
 
-            await message.react(`${colors[index].color}`);
+            await message.react(`${emoji.color}`);
 
             rounds++;
 
@@ -91,6 +99,31 @@ module.exports = {
                 }, 500);
 
             }
+
+            if (rounds === 10) {
+
+                
+                if (interaction.options.getString('color') === emoji.value) {
+                    newCash += (interaction.options.getInteger('bet-value') * 2);
+                    credit();
+                    message.edit('Congratulations! You won!');
+                    return;
+                } else {
+                    credit();
+                    message.edit('You lost!');
+                    return;
+                }
+
+            }
+
+        }
+
+        async function credit(){
+
+            await Account.update(
+                { wallet_cash: newCash },
+                { where: { id: interaction.user.id } }
+            )
 
         }
 
