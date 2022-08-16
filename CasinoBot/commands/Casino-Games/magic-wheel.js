@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, InteractionResponse } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 
 const Account = require('../../database/tables/accounts');
 
@@ -101,8 +101,7 @@ module.exports = {
             }
 
             if (rounds === 10) {
-
-                
+ 
                 if (interaction.options.getString('color') === emoji.value) {
                     newCash += (interaction.options.getInteger('bet-value') * 2);
                     credit();

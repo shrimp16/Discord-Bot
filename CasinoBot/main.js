@@ -36,8 +36,6 @@ client.on('interactionCreate', async interaction => {
 
     const command = client.commands.get(interaction.commandName);
 
-    console.log(command);
-
     if (!command) return;
 
     try {
