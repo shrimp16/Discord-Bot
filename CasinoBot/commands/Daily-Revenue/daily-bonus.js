@@ -61,6 +61,11 @@ async function claimBonus(account, interaction) {
         { where: { id: interaction.user.id } }
     )
 
+    await DailyClaim.update(
+        { last_claim: new Date().getTime() },
+        { where: { user_id: interaction.user.id } }
+    )
+
     interaction.reply('Claimed daily bonus! /balance to check your balance!');
 
 }
