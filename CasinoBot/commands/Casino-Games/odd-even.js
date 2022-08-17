@@ -28,6 +28,27 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
 
-        return interaction.reply('Currently implementing this command!');
+        const userBet = interaction.options.getString('odd-even');
+        const betAmount = interaction.options.getInteger('bet');
+        const userNumber = interaction.options.getInteger('number');
+
+        const randomNumber = Math.floor(Math.random() * 6);
+
+        const OddOrEven = ((randomNumber + userNumber) % 2 === 0);
+
+        if(OddOrEven && userBet === 'even'){
+            interaction.reply(`I played ${randomNumber} and it's even! you win!`);
+            return;
+        } else if(OddOrEven && userBet === 'odd'){
+            interaction.reply(`I played ${randomNumber} and it's even! I win!`);
+            return;
+        } else if(!OddOrEven && userBet === 'even'){
+            interaction.reply(`I played ${randomNumber} and it's odd! I win!`);
+            return;
+        } else {
+            interaction.reply(`I played ${randomNumber} and it's odd! You win!`)
+            return;
+        }
+        
     },
 };
