@@ -39,6 +39,11 @@ module.exports = {
             where: { id: interaction.user.id }
         })
 
+        if(user.dataValues.wallet_cash < betAmount){
+            interaction.reply(`You're trying to bet more money than you have!`);
+            return;
+        }
+
         const OddOrEven = ((randomNumber + userNumber) % 2 === 0);
 
         if (OddOrEven && userBet === 'even') {
