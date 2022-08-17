@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, RequestManager } = require('discord.js');
 
 const Account = require('../../database/tables/accounts');
 
@@ -54,6 +54,11 @@ module.exports = {
         const account = await Account.findOne(
             { where: { id: interaction.user.id } }
         )
+
+        if(account.dataValues.wallet_cash < interaction.options.getInteger('bet-value')){
+            interaction.reply(`You're trying to bet more money than you have!`);
+            return;
+        }
 
         let newCash = account.dataValues.wallet_cash - interaction.options.getInteger('bet-value');
 
