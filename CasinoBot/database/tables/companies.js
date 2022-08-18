@@ -12,7 +12,7 @@ const Companies = database.define('companies', {
     dollar_store: {
         type: Sequelize.INTEGER
     },
-    coffe_shop: {
+    coffee_shop: {
         type: Sequelize.INTEGER
     },
     bakery: {

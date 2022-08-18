@@ -18,13 +18,13 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 client.commands = loadToBot();
 
 //keeping this here just in case I need to reset the database
-/*
+
 (async () => {
     
     await database.sync({ force: true });
 
 })();
-*/
+
 
 // When the client is ready, run this code (only once)
 client.on('ready', () => {

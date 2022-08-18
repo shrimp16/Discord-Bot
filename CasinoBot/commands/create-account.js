@@ -17,7 +17,7 @@ module.exports = {
         await Companies.create({
             id: interaction.user.id,
             dollar_store: 0,
-            coffe_shop: 0,
+            coffee_shop: 0,
             bakery: 0,
             supermarket: 0
         })
