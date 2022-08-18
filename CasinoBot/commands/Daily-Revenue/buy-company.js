@@ -1,25 +1,21 @@
-const Companies = [
-    {
-        name: "Dollar Store",
-        production: 20,
-        price: 5000
+const CompaniesDetails = {
+    'Dollar Store': {
+        price: 5000,
+        production: 20
     },
-    {
-        name: "Coffee Shop",
-        production: 50,
-        price: 15000
+    'Coffee Shop': {
+        price: 15000,
+        production: 20
     },
-    {
-        name: "Bakery",
-        production: 150,
-        price: 30000
+    'Bakery': {
+        price: 30000,
+        production: 150
     },
-    {
-        name: "Supermarket",
-        production: 300,
-        price: 100000
+    'Supermarket': {
+        price: 100000,
+        production: 300
     }
-]
+}
 
 const { SlashCommandBuilder } = require('discord.js');
 
