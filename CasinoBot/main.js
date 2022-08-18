@@ -7,6 +7,7 @@ const { loadToBot } = require('./commands-loader');
 const database = require('./database/db');
 
 const Account = require('./database/tables/accounts')
+const Companies = require('./database/tables/companies')
 const BankAccount = require('./database/tables/bank-accounts');
 const CompaniesRevenue = require('./database/tables/companies-revenue');
 const DailyClaim = require('./database/tables/daily-claims');
