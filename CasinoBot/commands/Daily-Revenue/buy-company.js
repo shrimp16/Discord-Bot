@@ -1,21 +1,4 @@
-const CompaniesDetails = {
-    'Dollar Store': {
-        price: 5000,
-        production: 20
-    },
-    'Coffee Shop': {
-        price: 15000,
-        production: 20
-    },
-    'Bakery': {
-        price: 30000,
-        production: 150
-    },
-    'Supermarket': {
-        price: 100000,
-        production: 300
-    }
-}
+const { CompaniesDetails } = require('./companies-details.json');
 
 const { SlashCommandBuilder } = require('discord.js');
 
