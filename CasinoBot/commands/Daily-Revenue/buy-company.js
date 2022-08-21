@@ -17,6 +17,6 @@ module.exports = {
                 { name: 'Supermarket', value: 'Supermarket' }
             )),
 	async execute(interaction) {
-		return interaction.reply('Still in development!');
+		return interaction.reply(`Price: ${CompaniesDetails[interaction.options.getString('company')].price}$`);
 	},
 };
